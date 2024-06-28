@@ -20,7 +20,9 @@ import org.example.airbnb.domain.room.repository.RoomRepository;
 import org.example.airbnb.domain.roomfacility.entity.RoomFacility;
 import org.example.airbnb.domain.roomfacility.repository.RoomFacilityRepository;
 import org.example.airbnb.exception.CustomRuntimeException;
+import org.example.airbnb.exception.FacilityException;
 import org.example.airbnb.exception.RoomException;
+import org.example.airbnb.exception.RoomFacilityException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -70,18 +72,17 @@ public class RoomService {
     }
 
     public RoomFacilityResponseDto findFacilitiesByroomId(Long roomId) {
-        List<RoomFacility> roomFacilities = roomFacilityRepository.findAll();
-        for(RoomFacility roomFacility : roomFacilities){
-            Long id = roomFacility.getId();
-            if(id.equals(roomId)){
-                List<Facility> facilities = facilityRepository.findAll();
-                List<FacilityResponseDto> facilityResponseDtoList = facilities.stream()
-                        .map(FacilityResponseDto::of)
-                        .collect(Collectors.toList());
-                RoomFacilityResponseDto roomFacilityResponseDto = RoomFacilityResponseDto.of(facilityResponseDtoList);
-                return roomFacilityResponseDto;
-            }
+        List<RoomFacility> roomFacilities = roomFacilityRepository.findFacilitiesByroomId(roomId);
+        if (roomFacilities.isEmpty()) {
+            throw new CustomRuntimeException(RoomFacilityException.ROOM_FACILITY_NOT_FOUND_EXCEPTION);
         }
-        return null;
+
+        List<FacilityResponseDto> facilities = roomFacilities.stream()
+                .map(roomFacility -> facilityRepository.findById(roomFacility.getFacility().getId())
+                        .orElseThrow(() -> new CustomRuntimeException(FacilityException.FACILITY_NOT_FOUND_EXCEPTION)))
+                .map(FacilityResponseDto::of)
+                .collect(Collectors.toList());
+
+        return RoomFacilityResponseDto.of(facilities);
     }
 }
