@@ -1,6 +1,7 @@
 package org.example.airbnb.domain.room.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.airbnb.domain.facility.dto.FacilityResponseDto;
 import org.example.airbnb.domain.facility.dto.RoomFacilityResponseDto;
 import org.example.airbnb.domain.image.dto.MainRoomImageResponseDto;
 import org.example.airbnb.domain.room.dto.RoomResponseDto;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,18 +27,20 @@ public class RoomController {
 
     // 메인 룸 이미지
     @GetMapping("/{roomId}/images")
-    public ResponseEntity<MainRoomImageResponseDto> getRoomImages(@PathVariable Long roomId){
+    public ResponseEntity<MainRoomImageResponseDto> getRoomImages(@PathVariable Long roomId) {
         MainRoomImageResponseDto roomImageByroomId = roomService.findRoomImageByroomId(roomId);
         return roomImageByroomId != null ?
                 ResponseEntity.status(HttpStatus.OK).body(roomImageByroomId) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
     // 메인 룸정보
     @GetMapping("/{roomId}")
     public ResponseEntity<RoomResponseDto> getRoom(@PathVariable Long roomId) {
         RoomResponseDto room = roomService.findRoom(roomId);
         return ResponseEntity.status(HttpStatus.OK).body(room);
     }
+
     // 메인 호스트 정보
     @GetMapping("/{roomId}/user/{userId}")
     public ResponseEntity<MainHostResponseDto> getRoomByUserId(@PathVariable Long roomId, @PathVariable Long userId) throws SQLException {
@@ -45,12 +49,11 @@ public class RoomController {
                 ResponseEntity.status(HttpStatus.OK).body(mainHostResponseDto) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
     // 숙소 편의시설
     @GetMapping("/{roomId}/facilities")
-    public ResponseEntity<RoomFacilityResponseDto> getFacilitiesByRoomId(@PathVariable Long roomId){
+    public ResponseEntity<RoomFacilityResponseDto> getFacilitiesByRoomId(@PathVariable Long roomId) {
         RoomFacilityResponseDto roomFacilityResponseDto = roomService.findFacilitiesByroomId(roomId);
-        return roomFacilityResponseDto != null ?
-                ResponseEntity.status(HttpStatus.OK).body(roomFacilityResponseDto) :
-                ResponseEntity.status((HttpStatus.BAD_REQUEST)).build();
+        return ResponseEntity.status(HttpStatus.OK).body(roomFacilityResponseDto);
     }
 }

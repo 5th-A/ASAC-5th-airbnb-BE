@@ -11,9 +11,9 @@ import java.util.List;
 public class RoomFacilityResponseDto {
     private List<FacilityResponseDto> roomFacilities;
 
-    public static RoomFacilityResponseDto of(List<FacilityResponseDto> roomFacilities){
+    public static RoomFacilityResponseDto of(List<FacilityResponseDto> facilities){
         return RoomFacilityResponseDto.builder()
-                .roomFacilities(roomFacilities)
+                .roomFacilities(facilities)
                 .build();
     }
     @Builder
