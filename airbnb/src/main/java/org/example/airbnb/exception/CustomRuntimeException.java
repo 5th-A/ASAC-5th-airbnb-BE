@@ -21,5 +21,4 @@ public class CustomRuntimeException extends RuntimeException{
         messages.put(MESSAGE, customException.message());
         return ResponseEntity.status(customException.status()).body(messages);
     }
-
 }
