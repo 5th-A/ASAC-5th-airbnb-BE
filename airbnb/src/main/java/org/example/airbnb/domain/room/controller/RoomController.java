@@ -4,17 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.example.airbnb.domain.facility.dto.RoomFacilityResponseDto;
 import org.example.airbnb.domain.image.dto.MainRoomImageResponseDto;
 import org.example.airbnb.domain.room.dto.RoomResponseDto;
+import org.example.airbnb.domain.room.entity.Room;
 import org.example.airbnb.domain.room.service.RoomService;
 import org.example.airbnb.domain.user.dto.MainHostResponseDto;
 import org.example.airbnb.domain.user.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +26,18 @@ import java.sql.SQLException;
 public class RoomController {
     private final RoomService roomService;
     private final UserService userService;
+
+    // 숙소 목록 출력
+    @GetMapping
+    public ResponseEntity<Page<RoomResponseDto>> getRoomList(
+            @RequestParam(value="categoryId", required = false) Long categoryId,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "1") int size
+    ){
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "id");
+        Page<RoomResponseDto> roomList = roomService.findRoomIdList(pageable);
+        return ResponseEntity.ok(roomList);
+    }
 
     // 메인 룸 이미지
     @GetMapping("/{roomId}/images")

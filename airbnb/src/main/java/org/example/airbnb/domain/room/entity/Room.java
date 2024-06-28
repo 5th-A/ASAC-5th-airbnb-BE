@@ -7,10 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.airbnb.domain.category.entity.Category;
 import org.example.airbnb.domain.city.entity.City;
+import org.example.airbnb.domain.facility.entity.Facility;
 import org.example.airbnb.domain.room.dto.RoomResponseDto;
 import org.example.airbnb.domain.user.entity.User;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -59,4 +61,5 @@ public class Room {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
+
 }
