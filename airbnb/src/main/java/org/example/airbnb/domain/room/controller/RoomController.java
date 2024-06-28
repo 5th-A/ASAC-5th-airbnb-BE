@@ -35,9 +35,7 @@ public class RoomController {
     @GetMapping("/{roomId}")
     public ResponseEntity<RoomResponseDto> getRoom(@PathVariable Long roomId) {
         RoomResponseDto room = roomService.findRoom(roomId);
-        return room != null ?
-                ResponseEntity.status(HttpStatus.OK).body(room) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.OK).body(room);
     }
     // 메인 호스트 정보
     @GetMapping("/{roomId}/user/{userId}")

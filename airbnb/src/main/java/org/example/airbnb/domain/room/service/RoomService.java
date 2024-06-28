@@ -19,6 +19,8 @@ import org.example.airbnb.domain.room.entity.Room;
 import org.example.airbnb.domain.room.repository.RoomRepository;
 import org.example.airbnb.domain.roomfacility.entity.RoomFacility;
 import org.example.airbnb.domain.roomfacility.repository.RoomFacilityRepository;
+import org.example.airbnb.exception.CustomRuntimeException;
+import org.example.airbnb.exception.RoomException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -36,7 +38,10 @@ public class RoomService {
     private final RoomFacilityRepository roomFacilityRepository;
 
     public RoomResponseDto findRoom(Long id){
-        Room room = roomRepository.findById(id).orElse(null);
+        Room room = roomRepository.findById(id).orElseThrow( () -> {
+          throw new CustomRuntimeException(RoomException.ROOM_NOT_FOUND_EXCEPTION);
+        });
+
         Category category = room.getCategory();
         List<Facility> facilityList = facilityRepository.findAll();
 
