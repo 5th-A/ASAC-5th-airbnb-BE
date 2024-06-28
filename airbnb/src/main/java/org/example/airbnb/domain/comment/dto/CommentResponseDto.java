@@ -1,42 +1,31 @@
 package org.example.airbnb.domain.comment.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.airbnb.domain.comment.entity.Comment;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
-public class CommentDto {
-    private Long id;
-    private String userProfile;
-    private Integer rate;
-    private String userName;
-    private String userCountry;
-    private LocalDate date;
-    private String message;
+public class CommentResponseDto {
+    @JsonProperty(value = "average")
+    private Double averageRate;
+    @JsonProperty(value = "comment")
+    private List<CommentDto> comments;
 
-    public static CommentDto from(Comment comment, String userName, String userProfile, String userCountry){
-        return CommentDto.builder()
-                .id(comment.getId())
-                .userProfile(userProfile)
-                .rate(comment.getRate())
-                .userName(userName)
-                .userCountry(userCountry)
-                .date(comment.getDate().toLocalDate())
-                .message(comment.getContent())
+    public static CommentResponseDto of(Double averageRate, List<CommentDto> comments){
+        return CommentResponseDto.builder()
+                .averageRate(averageRate)
+                .comments(comments)
                 .build();
     }
     @Builder
-    public CommentDto(Long id, String userProfile, Integer rate, String userName, String userCountry, LocalDate date, String message) {
-        this.id = id;
-        this.userProfile = userProfile;
-        this.rate = rate;
-        this.userName = userName;
-        this.userCountry = userCountry;
-        this.date = date;
-        this.message = message;
+    private CommentResponseDto(Double averageRate, List<CommentDto> comments) {
+        this.averageRate = averageRate;
+        this.comments = comments;
     }
 }
