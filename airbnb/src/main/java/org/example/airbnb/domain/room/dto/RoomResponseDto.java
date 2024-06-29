@@ -25,33 +25,18 @@ public class RoomResponseDto {
     private List<FacilityResponseDto> facilities;
 
     public static RoomResponseDto of(Room room, CategoryResponseDto categoryDto, List<FacilityResponseDto> facilityResponseDto) {
-        return RoomResponseDto.builder()
-                .id(room.getId())
-                .address(room.getAddress())
-                .roomType(room.getRoomType())
-                .guestPrefer(room.getGuestPrefer())
-                .price(room.getPrice())
-                .maximum(room.getMaxGuest())
-                .beds(room.getBed())
-                .bedRooms(room.getBedroom())
-                .bathRooms(room.getBathroom())
-                .category(categoryDto)
-                .facilityListResponseDto(facilityResponseDto)
-                .build();
-    }
-
-    @Builder
-    private RoomResponseDto(Long id, String address, String roomType, Boolean guestPrefer, Long price, Integer maximum, Integer beds, Integer bedRooms, Integer bathRooms, CategoryResponseDto category, List<FacilityResponseDto> facilityListResponseDto) {
-        this.id = id;
-        this.address = address;
-        this.roomType = roomType;
-        this.guestPrefer = guestPrefer;
-        this.price = price;
-        this.maximum = maximum;
-        this.beds = beds;
-        this.bedRooms = bedRooms;
-        this.bathRooms = bathRooms;
-        this.category = category;
-        this.facilities = facilityListResponseDto;
+        RoomResponseDto dto = new RoomResponseDto();
+        dto.id = room.getId();
+        dto.address = room.getAddress();
+        dto.roomType = room.getRoomType();
+        dto.guestPrefer = room.getGuestPrefer();
+        dto.price = room.getPrice();
+        dto.maximum = room.getMaxGuest();
+        dto.beds = room.getBed();
+        dto.bedRooms = room.getBedroom();
+        dto.bathRooms = room.getBathroom();
+        dto.category = categoryDto;
+        dto.facilities = facilityResponseDto;
+        return dto;
     }
 }
