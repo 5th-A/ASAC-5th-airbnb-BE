@@ -1,6 +1,8 @@
 package org.example.airbnb.domain.room.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.airbnb.domain.comment.dto.CommentDto;
+import org.example.airbnb.domain.comment.dto.CommentRequestDto;
 import org.example.airbnb.domain.comment.dto.CommentResponseDto;
 import org.example.airbnb.domain.comment.service.CommentService;
 import org.example.airbnb.domain.facility.dto.FacilityResponseDto;
@@ -12,10 +14,7 @@ import org.example.airbnb.domain.user.dto.MainHostResponseDto;
 import org.example.airbnb.domain.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -65,5 +64,12 @@ public class RoomController {
     public ResponseEntity<CommentResponseDto> getComments(@PathVariable Long roomId){
         CommentResponseDto commentResponseDto = commentService.findCommentByRoomId(roomId);
         return  ResponseEntity.status(HttpStatus.OK).body(commentResponseDto);
+    }
+    
+    // 댓글 입력
+    @PostMapping("/{roomId}/comment")
+    public ResponseEntity<CommentDto> setComment(@PathVariable Long roomId, @RequestBody CommentRequestDto commentRequestDto){
+        CommentDto commentDto = commentService.saveComment(roomId, commentRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(commentDto);
     }
 }
