@@ -10,20 +10,19 @@ import org.example.airbnb.domain.facility.entity.Facility;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
 public class FacilityResponseDto {
     private Long id;
-    @JsonProperty(value = "url")
+    @JsonProperty(value = "icon")
     private String icon;
-    @JsonProperty(value = "text")
+    @JsonProperty(value = "name")
     private String name;
 
     public static FacilityResponseDto of(Facility facility){
-        return FacilityResponseDto.builder()
-                .id(facility.getId())
-                .icon(facility.getIcon())
-                .name(facility.getName())
-                .build();
+        FacilityResponseDto dto = new FacilityResponseDto();
+        dto.id = facility.getId();
+        dto.icon = facility.getIcon();
+        dto.name = facility.getName();
+        return dto;
     }
 }
