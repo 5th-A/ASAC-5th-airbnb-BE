@@ -39,9 +39,9 @@ public class RoomService {
     private final ImageRepository imageRepository;
     private final RoomFacilityRepository roomFacilityRepository;
 
-    public RoomResponseDto findRoom(Long id){
-        Room room = roomRepository.findById(id).orElseThrow( () -> {
-          throw new CustomRuntimeException(RoomException.ROOM_NOT_FOUND_EXCEPTION);
+    public RoomResponseDto findRoom(Long id) {
+        Room room = roomRepository.findById(id).orElseThrow(() -> {
+            throw new CustomRuntimeException(RoomException.ROOM_NOT_FOUND_EXCEPTION);
         });
 
         Category category = room.getCategory();
@@ -58,15 +58,18 @@ public class RoomService {
     }
 
     public MainRoomImageResponseDto findRoomImageByRoomId(Long roomId) {
-        try{
+        try {
             Room room = roomRepository.findById(roomId).orElse(null);
             String roomName = room.getName();
             List<Image> images = imageRepository.findRoomByRoomId(roomId);
             List<ImageDto> imageDtos = images.stream().map(ImageDto::of).collect(Collectors.toList());
 
-            MainRoomImageResponseDto mainRoomImageResponseDto = MainRoomImageResponseDto.of(roomName, imageDtos);
+            MainRoomImageResponseDto mainRoomImageResponseDto = MainRoomImageResponseDto.builder()
+                    .roomName(roomName)
+                    .roomImages(imageDtos)
+                    .build();
             return mainRoomImageResponseDto;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException();
         }
     }
