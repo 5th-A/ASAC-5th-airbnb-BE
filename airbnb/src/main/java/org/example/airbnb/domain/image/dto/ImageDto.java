@@ -16,15 +16,9 @@ public class ImageDto {
     private String url;
 
     public static ImageDto of(Image image){
-        return ImageDto.builder()
-                .id(image.getId())
-                .imageUrl(image.getImageUrl())
-                .build();
-    }
-
-    @Builder
-    private ImageDto(Long id, String imageUrl) {
-        this.id = id;
-        this.url = imageUrl;
+        ImageDto dto = new ImageDto();
+        dto.id = image.getId();
+        dto.url = image.getImageUrl();
+        return dto;
     }
 }
