@@ -18,14 +18,9 @@ public class CommentResponseDto {
     private List<CommentDto> comments;
 
     public static CommentResponseDto of(Double averageRate, List<CommentDto> comments){
-        return CommentResponseDto.builder()
-                .averageRate(averageRate)
-                .comments(comments)
-                .build();
-    }
-    @Builder
-    private CommentResponseDto(Double averageRate, List<CommentDto> comments) {
-        this.averageRate = averageRate;
-        this.comments = comments;
+        CommentResponseDto dto = new CommentResponseDto();
+        dto.averageRate = averageRate;
+        dto.comments = comments;
+        return dto;
     }
 }
