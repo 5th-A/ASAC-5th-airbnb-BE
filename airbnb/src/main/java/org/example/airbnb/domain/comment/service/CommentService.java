@@ -8,13 +8,17 @@ import org.example.airbnb.domain.comment.dto.CommentResponseDto;
 import org.example.airbnb.domain.comment.entity.Comment;
 import org.example.airbnb.domain.comment.repository.CommentRepository;
 import org.example.airbnb.domain.image.dto.ImageDto;
+import org.example.airbnb.domain.image.repository.ImageRepository;
 import org.example.airbnb.domain.room.dto.RoomDto;
 import org.example.airbnb.domain.room.dto.RoomResponseDto;
 import org.example.airbnb.domain.room.entity.Room;
 import org.example.airbnb.domain.room.repository.RoomRepository;
+import org.example.airbnb.domain.user.entity.User;
+import org.example.airbnb.domain.user.repository.UserRepository;
 import org.example.airbnb.exception.CommentException;
 import org.example.airbnb.exception.CustomRuntimeException;
 import org.example.airbnb.exception.RoomException;
+import org.example.airbnb.exception.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,6 +32,7 @@ import java.util.stream.Collectors;
 public class CommentService {
     private final CommentRepository commentRepository;
     private final RoomRepository roomRepository;
+    private final UserRepository userRepository;
 
     public CommentResponseDto findCommentByRoomId(Long roomId) {
         List<Comment> comments = commentRepository.findCommentByRoomId(roomId);
@@ -44,7 +49,10 @@ public class CommentService {
         Room room = roomRepository.findById(roomId).orElseThrow(() -> {
             throw new CustomRuntimeException(RoomException.ROOM_NOT_FOUND_EXCEPTION);
         });
-        Comment comment = Comment.of(commentRequestDto, room);
+        User user = userRepository.findById(commentRequestDto.getUserId()).orElseThrow(() -> {
+            throw new CustomRuntimeException(UserException.USER_NOT_FOUND_EXCEPTION);
+        });
+        Comment comment = Comment.of(commentRequestDto, room, user);
         Comment savedComment = commentRepository.save(comment);
         CommentDto responseCommentDto = CommentDto.from(savedComment);
         return responseCommentDto;
