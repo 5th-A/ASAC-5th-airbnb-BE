@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
+// 안쓰지만 혹시 몰라서 만듦
 public class UserRequestDto {
     private Long id;
     private String name;
