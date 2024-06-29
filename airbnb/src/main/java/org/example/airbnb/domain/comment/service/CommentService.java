@@ -20,11 +20,8 @@ import java.util.stream.Collectors;
 public class CommentService {
     private final CommentRepository commentRepository;
 
-    public CommentResponseDto findByRoomId(Long roomId) {
+    public CommentResponseDto findCommentByRoomId(Long roomId) {
         List<Comment> comments = commentRepository.findCommentByRoomId(roomId);
-        if(comments.isEmpty()) {
-            throw new CustomRuntimeException(CommentException.COMMENT_NOT_FOUND_EXCEPTION);
-        }
         List<CommentDto> commentDtos = comments.stream().
                 map(CommentDto::from).
                 collect(Collectors.toList());

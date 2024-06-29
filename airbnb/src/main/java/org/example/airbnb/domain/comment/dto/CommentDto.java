@@ -33,7 +33,7 @@ public class CommentDto {
                 .build();
     }
     @Builder
-    public CommentDto(Long id, Integer rate, LocalDate date, String message,String profile, String name, String country) {
+    private CommentDto(Long id, Integer rate, LocalDate date, String message,String profile, String name, String country) {
         this.id = id;
         this.rate = rate;
         this.date = date;

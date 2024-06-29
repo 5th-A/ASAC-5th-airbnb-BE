@@ -63,7 +63,7 @@ public class RoomController {
     // 댓글 출력
     @GetMapping("/{roomId}/comments")
     public ResponseEntity<CommentResponseDto> getComments(@PathVariable Long roomId){
-        CommentResponseDto commentResponseDto = commentService.findByRoomId(roomId);
+        CommentResponseDto commentResponseDto = commentService.findCommentByRoomId(roomId);
         return  ResponseEntity.status(HttpStatus.OK).body(commentResponseDto);
     }
 }
