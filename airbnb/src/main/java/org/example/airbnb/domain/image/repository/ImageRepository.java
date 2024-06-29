@@ -12,4 +12,7 @@ import java.util.List;
 public interface ImageRepository extends JpaRepository<Image,Long> {
     @Query("SELECT I FROM Image I WHERE I.id = :roomId")
     List<Image> findRoomByroomId(Long roomId);
+
+    @Query("SELECT I FROM Image I JOIN I.room R WHERE R.id = :roomId")
+    List<Image> findRoomByImage(@Param("roomId") Long roomId);
 }

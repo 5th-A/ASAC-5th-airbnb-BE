@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fc2289e3-29a6-44ca-b723-9abd98a389cf" name="Changes" comment="" />
+    <list default="true" id="fc2289e3-29a6-44ca-b723-9abd98a389cf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/room/dto/RoomImageDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/image/repository/ImageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/image/repository/ImageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/room/controller/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/room/controller/RoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/room/dto/RoomResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/room/dto/RoomResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/room/service/RoomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/airbnb/src/main/java/org/example/airbnb/domain/room/service/RoomService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,18 +39,18 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package-info" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -62,6 +70,7 @@
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.AirbnbApplication.executor": "Run",
     "git-widget-placeholder": "be/feature/#9-숙소-목록-출력",
     "kotlin-language-version-configured": "true",
@@ -107,7 +116,8 @@
       <updated>1719385010719</updated>
       <workItem from="1719385011700" duration="5890000" />
       <workItem from="1719454375713" duration="2265000" />
-      <workItem from="1719478751716" duration="49846000" />
+      <workItem from="1719478751716" duration="50135000" />
+      <workItem from="1719623236375" duration="13721000" />
     </task>
     <servers />
   </component>

@@ -5,9 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.airbnb.domain.category.dto.CategoryResponseDto;
 import org.example.airbnb.domain.facility.dto.FacilityResponseDto;
+import org.example.airbnb.domain.image.dto.ImageDto;
+import org.example.airbnb.domain.image.entity.Image;
 import org.example.airbnb.domain.room.entity.Room;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
@@ -23,6 +26,10 @@ public class RoomResponseDto {
     private Integer bathRooms;
     private CategoryResponseDto category;
     private List<FacilityResponseDto> facilities;
+    private String date;
+    private Boolean isLike;
+    private Integer rate;
+    private List<ImageDto> roomImages;
 
     public static RoomResponseDto of(Room room, CategoryResponseDto categoryDto, List<FacilityResponseDto> facilityResponseDto) {
         return RoomResponseDto.builder()
@@ -41,7 +48,7 @@ public class RoomResponseDto {
     }
 
     @Builder
-    public RoomResponseDto(Long id, String address, String roomType, Boolean guestPrefer, Long price, Integer maximum, Integer beds, Integer bedRooms, Integer bathRooms, CategoryResponseDto category, List<FacilityResponseDto> facilityListResponseDto) {
+    public RoomResponseDto(Long id, String address, String roomType, Boolean guestPrefer, Long price, Integer maximum, Integer beds, Integer bedRooms, Integer bathRooms, CategoryResponseDto category, List<FacilityResponseDto> facilityListResponseDto, String date, List<ImageDto> roomImages, Boolean isLike, Integer rate) {
         this.id = id;
         this.address = address;
         this.roomType = roomType;
@@ -53,5 +60,9 @@ public class RoomResponseDto {
         this.bathRooms = bathRooms;
         this.category = category;
         this.facilities = facilityListResponseDto;
+        this.date = date;
+        this.roomImages = roomImages;
+        this.isLike = isLike;
+        this.rate = rate;
     }
 }

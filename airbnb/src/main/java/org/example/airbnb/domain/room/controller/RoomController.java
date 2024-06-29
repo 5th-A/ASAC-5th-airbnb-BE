@@ -3,6 +3,7 @@ package org.example.airbnb.domain.room.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.airbnb.domain.facility.dto.RoomFacilityResponseDto;
 import org.example.airbnb.domain.image.dto.MainRoomImageResponseDto;
+import org.example.airbnb.domain.room.dto.RoomImageDto;
 import org.example.airbnb.domain.room.dto.RoomResponseDto;
 import org.example.airbnb.domain.room.entity.Room;
 import org.example.airbnb.domain.room.service.RoomService;
@@ -29,13 +30,13 @@ public class RoomController {
 
     // 숙소 목록 출력
     @GetMapping
-    public ResponseEntity<Page<RoomResponseDto>> getRoomList(
+    public ResponseEntity<List<RoomImageDto>> getRoomList(
             @RequestParam(value="categoryId", required = false) Long categoryId,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "1") int size
+            @RequestParam(value = "size", defaultValue = "3") int size
     ){
-        Pageable pageable = PageRequest.of(page, size, Sort.Direction.DESC, "id");
-        Page<RoomResponseDto> roomList = roomService.findRoomIdList(pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.Direction.ASC, "id");
+        List<RoomImageDto> roomList = roomService.getRoomWithImages(pageable);
         return ResponseEntity.ok(roomList);
     }
 

@@ -16,6 +16,7 @@ import org.example.airbnb.domain.image.dto.ImageDto;
 import org.example.airbnb.domain.image.dto.MainRoomImageResponseDto;
 import org.example.airbnb.domain.image.entity.Image;
 import org.example.airbnb.domain.image.repository.ImageRepository;
+import org.example.airbnb.domain.room.dto.RoomImageDto;
 import org.example.airbnb.domain.room.dto.RoomResponseDto;
 import org.example.airbnb.domain.room.entity.Room;
 import org.example.airbnb.domain.room.repository.RoomRepository;
@@ -30,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,22 +46,16 @@ public class RoomService {
     private final CategoryService categoryService;
     private final FacilityService facilityService;
 
-    // Page<RoomResponseDto> 를 리턴하는 룸아이디 리스트 메서드 정의하고 싶음
-    public Page<RoomResponseDto> findRoomIdList(Pageable pageable){
-        Page<Room> rooms = roomRepository.findAll(pageable); // 모든 아이디 불러옴
-        if(rooms.isEmpty()){ //  에러처리
-            throw new CustomRuntimeException(RoomException.ROOM_NOT_FOUND_EXCEPTION);
-        }
-        List<RoomResponseDto> roomResponseDtoList = rooms // entity -> dto 변환
-                .stream()
-                .map(room->{// of 메서드에 필요한 파라미터값 3개 : room, categoryResponseDto, facilityResponseDtoList
-                    CategoryResponseDto categoryResponseDto = categoryService.getCategoryByRoom(room);
-                    List<FacilityResponseDto> facilityResponseDtoList =facilityService.getFacilitiesByRoom(room);
-                    return RoomResponseDto.of(room, categoryResponseDto, facilityResponseDtoList);
-                })
-                .collect(Collectors.toList());
-        return new PageImpl<>(roomResponseDtoList, pageable, rooms.getTotalElements()); // 페이지 구현체 리턴해줌
+    public List<RoomImageDto> getRoomWithImages(Pageable pageable){
+        Page<Room> rooms = roomRepository.findAll(pageable);
+        List<RoomImageDto> roomImageDtos = new ArrayList<>();
 
+        for(Room room : rooms){
+            List<Image> roomImages = imageRepository.findRoomByImage(room.getId());
+
+            roomImageDtos.add(RoomImageDto.of(room, roomImages));
+        }
+        return roomImageDtos;
     }
 
     public RoomResponseDto findRoom(Long id){
