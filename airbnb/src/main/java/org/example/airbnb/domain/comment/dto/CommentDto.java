@@ -1,6 +1,7 @@
 package org.example.airbnb.domain.comment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.airbnb.domain.comment.entity.Comment;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
 public class CommentDto {
     private Long id;
     private Integer rate;
@@ -21,14 +23,14 @@ public class CommentDto {
     private String country;
 
     public static CommentDto from(Comment comment) {
-        CommentDto dto = new CommentDto();
-        dto.id = comment.getId();
-        dto.rate = comment.getRate();
-        dto.date = comment.getDate().toLocalDate();
-        dto.message = comment.getContent();
-        dto.profile = comment.getUser().getProfile();
-        dto.name = comment.getUser().getName();
-        dto.country = comment.getUser().getCountry().getName();
-        return dto;
+        return new CommentDto(
+                comment.getId(),
+                comment.getRate(),
+                comment.getDate().toLocalDate(),
+                comment.getContent(),
+                comment.getUser().getProfile(),
+                comment.getUser().getName(),
+                comment.getUser().getCountry().getName()
+        );
     }
 }
