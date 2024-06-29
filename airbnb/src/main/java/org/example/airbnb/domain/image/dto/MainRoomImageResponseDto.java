@@ -2,6 +2,7 @@ package org.example.airbnb.domain.image.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,14 +16,6 @@ public class MainRoomImageResponseDto {
     private String roomName;
     @JsonProperty(value = "RoomImages")
     private List<ImageDto> roomImages;
-
-
-    public static MainRoomImageResponseDto of(String roomName, List<ImageDto> imageDtoList){
-        return MainRoomImageResponseDto.builder()
-                .roomName(roomName)
-                .roomImages(imageDtoList)
-                .build();
-    }
 
     @Builder
     private MainRoomImageResponseDto(String roomName, List<ImageDto> roomImages) {
