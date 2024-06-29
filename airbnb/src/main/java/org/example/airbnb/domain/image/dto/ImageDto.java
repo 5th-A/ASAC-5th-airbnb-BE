@@ -15,7 +15,6 @@ public class ImageDto {
     private Long id;
     private String url;
 
-
     public static ImageDto of(Image image){
         return ImageDto.builder()
                 .id(image.getId())
@@ -24,7 +23,7 @@ public class ImageDto {
     }
 
     @Builder
-    public ImageDto(Long id, String imageUrl) {
+    private ImageDto(Long id, String imageUrl) {
         this.id = id;
         this.url = imageUrl;
     }

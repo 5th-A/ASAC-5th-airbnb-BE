@@ -14,7 +14,7 @@ public class MainRoomImageResponseDto {
     @JsonProperty(value = "RoomName")
     private String roomName;
     @JsonProperty(value = "RoomImages")
-    private List<ImageDto> RoomImages;
+    private List<ImageDto> roomImages;
 
 
     public static MainRoomImageResponseDto of(String roomName, List<ImageDto> imageDtoList){
@@ -27,6 +27,6 @@ public class MainRoomImageResponseDto {
     @Builder
     private MainRoomImageResponseDto(String roomName, List<ImageDto> roomImages) {
         this.roomName = roomName;
-        this.RoomImages = roomImages;
+        this.roomImages = roomImages;
     }
 }

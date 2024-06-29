@@ -30,9 +30,9 @@ public class RoomController {
     // 메인 룸 이미지
     @GetMapping("/{roomId}/images")
     public ResponseEntity<MainRoomImageResponseDto> getRoomImages(@PathVariable Long roomId) {
-        MainRoomImageResponseDto roomImageByroomId = roomService.findRoomImageByroomId(roomId);
-        return roomImageByroomId != null ?
-                ResponseEntity.status(HttpStatus.OK).body(roomImageByroomId) :
+        MainRoomImageResponseDto roomImagesByRoomId = roomService.findRoomImageByRoomId(roomId);
+        return roomImagesByRoomId != null ?
+                ResponseEntity.status(HttpStatus.OK).body(roomImagesByRoomId) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
@@ -55,7 +55,7 @@ public class RoomController {
     // 숙소 편의시설
     @GetMapping("/{roomId}/facilities")
     public ResponseEntity<RoomFacilityResponseDto> getFacilitiesByRoomId(@PathVariable Long roomId) {
-        RoomFacilityResponseDto roomFacilityResponseDto = roomService.findFacilitiesByroomId(roomId);
+        RoomFacilityResponseDto roomFacilityResponseDto = roomService.findFacilitiesByRoomId(roomId);
         return ResponseEntity.status(HttpStatus.OK).body(roomFacilityResponseDto);
     }
 

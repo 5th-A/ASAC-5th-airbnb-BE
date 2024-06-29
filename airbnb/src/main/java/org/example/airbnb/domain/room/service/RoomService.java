@@ -57,11 +57,11 @@ public class RoomService {
         return roomResponseDto;
     }
 
-    public MainRoomImageResponseDto findRoomImageByroomId(Long roomId) {
+    public MainRoomImageResponseDto findRoomImageByRoomId(Long roomId) {
         try{
             Room room = roomRepository.findById(roomId).orElse(null);
             String roomName = room.getName();
-            List<Image> images = imageRepository.findRoomByroomId(roomId);
+            List<Image> images = imageRepository.findRoomByRoomId(roomId);
             List<ImageDto> imageDtos = images.stream().map(ImageDto::of).collect(Collectors.toList());
 
             MainRoomImageResponseDto mainRoomImageResponseDto = MainRoomImageResponseDto.of(roomName, imageDtos);
@@ -71,7 +71,7 @@ public class RoomService {
         }
     }
 
-    public RoomFacilityResponseDto findFacilitiesByroomId(Long roomId) {
+    public RoomFacilityResponseDto findFacilitiesByRoomId(Long roomId) {
         List<RoomFacility> roomFacilities = roomFacilityRepository.findFacilitiesByroomId(roomId);
         if (roomFacilities.isEmpty()) {
             throw new CustomRuntimeException(RoomFacilityException.ROOM_FACILITY_NOT_FOUND_EXCEPTION);
