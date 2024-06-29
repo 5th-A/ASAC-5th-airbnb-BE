@@ -6,14 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.airbnb.domain.user.entity.User;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class UserResponseDto {
-    private String name;
-    private String profile;
-    private Integer year;
-    private String type;
+    private final String name;
+    private final String profile;
+    private final Integer year;
+    private final String type;
 
     public static UserResponseDto of(User user){
         return new UserResponseDto(
