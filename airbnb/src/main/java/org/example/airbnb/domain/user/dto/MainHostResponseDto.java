@@ -1,28 +1,20 @@
 package org.example.airbnb.domain.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Getter
+@AllArgsConstructor
 public class MainHostResponseDto {
     @JsonProperty(value = "user")
-    private UserResponseDto userResponseDto;
-    private String introduction;
+    private final UserResponseDto userResponseDto;
+    private final String introduction;
 
     public static MainHostResponseDto of(UserResponseDto userResponseDto, String introduction){
-        return MainHostResponseDto
-                .builder()
-                .userResponseDto(userResponseDto)
-                .introduction(introduction)
-                .build();
-    }
-
-    @Builder
-    private MainHostResponseDto(UserResponseDto userResponseDto, String introduction) {
-        this.userResponseDto = userResponseDto;
-        this.introduction = introduction;
+        return new MainHostResponseDto(
+                userResponseDto,
+                introduction
+        );
     }
 }
