@@ -6,22 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.airbnb.domain.user.entity.User;
 
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Getter
 public class UserResponseDto {
-    private String name;
-    private String profile;
-    private Integer year;
-    private String type;
+    private final String name;
+    private final String profile;
+    private final Integer year;
+    private final String type;
 
     public static UserResponseDto of(User user){
-        return UserResponseDto.builder()
-                .profile(user.getProfile())
-                .year(Integer.parseInt(user.getRegDate().toString().substring(0,4)))
-                .type(user.getSuperhost() == true ? "슈퍼호스트" : "호스트" )
-                .name(user.getName())
-                .build();
+        return new UserResponseDto(
+                user.getName(),
+                user.getProfile(),
+                Integer.parseInt(user.getRegDate().toString().substring(0,4)),
+                user.getSuperhost() == true ? "슈퍼호스트" : "호스트"
+        );
     }
 }

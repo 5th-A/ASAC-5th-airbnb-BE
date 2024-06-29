@@ -1,7 +1,7 @@
 package org.example.airbnb.domain.comment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.example.airbnb.domain.comment.entity.Comment;
@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
+@AllArgsConstructor
 public class CommentDto {
     private Long id;
     private Integer rate;
@@ -21,25 +22,15 @@ public class CommentDto {
     @JsonProperty(value = "location")
     private String country;
 
-    public static CommentDto from(Comment comment){
-        return CommentDto.builder()
-                .id(comment.getId())
-                .rate(comment.getRate())
-                .date(comment.getDate().toLocalDate())
-                .message(comment.getContent())
-                .profile(comment.getUser().getProfile())
-                .name(comment.getUser().getName())
-                .country(comment.getUser().getCountry().getName())
-                .build();
-    }
-    @Builder
-    private CommentDto(Long id, Integer rate, LocalDate date, String message,String profile, String name, String country) {
-        this.id = id;
-        this.rate = rate;
-        this.date = date;
-        this.message = message;
-        this.profile = profile;
-        this.name = name;
-        this.country = country;
+    public static CommentDto from(Comment comment) {
+        return new CommentDto(
+                comment.getId(),
+                comment.getRate(),
+                comment.getDate().toLocalDate(),
+                comment.getContent(),
+                comment.getUser().getProfile(),
+                comment.getUser().getName(),
+                comment.getUser().getCountry().getName()
+        );
     }
 }
