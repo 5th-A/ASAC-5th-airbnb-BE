@@ -1,6 +1,8 @@
 package org.example.airbnb.domain.room.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.airbnb.domain.comment.dto.CommentResponseDto;
+import org.example.airbnb.domain.comment.service.CommentService;
 import org.example.airbnb.domain.facility.dto.FacilityResponseDto;
 import org.example.airbnb.domain.facility.dto.RoomFacilityResponseDto;
 import org.example.airbnb.domain.image.dto.MainRoomImageResponseDto;
@@ -24,6 +26,7 @@ import java.util.List;
 public class RoomController {
     private final RoomService roomService;
     private final UserService userService;
+    private final CommentService commentService;
 
     // 메인 룸 이미지
     @GetMapping("/{roomId}/images")
@@ -55,5 +58,12 @@ public class RoomController {
     public ResponseEntity<RoomFacilityResponseDto> getFacilitiesByRoomId(@PathVariable Long roomId) {
         RoomFacilityResponseDto roomFacilityResponseDto = roomService.findFacilitiesByroomId(roomId);
         return ResponseEntity.status(HttpStatus.OK).body(roomFacilityResponseDto);
+    }
+
+    // 댓글 출력
+    @GetMapping("/{roomId}/comments")
+    public ResponseEntity<CommentResponseDto> getComments(@PathVariable Long roomId){
+        CommentResponseDto commentResponseDto = commentService.findCommentByRoomId(roomId);
+        return  ResponseEntity.status(HttpStatus.OK).body(commentResponseDto);
     }
 }

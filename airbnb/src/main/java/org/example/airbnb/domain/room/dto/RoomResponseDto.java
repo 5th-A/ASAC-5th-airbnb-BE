@@ -41,7 +41,7 @@ public class RoomResponseDto {
     }
 
     @Builder
-    public RoomResponseDto(Long id, String address, String roomType, Boolean guestPrefer, Long price, Integer maximum, Integer beds, Integer bedRooms, Integer bathRooms, CategoryResponseDto category, List<FacilityResponseDto> facilityListResponseDto) {
+    private RoomResponseDto(Long id, String address, String roomType, Boolean guestPrefer, Long price, Integer maximum, Integer beds, Integer bedRooms, Integer bathRooms, CategoryResponseDto category, List<FacilityResponseDto> facilityListResponseDto) {
         this.id = id;
         this.address = address;
         this.roomType = roomType;
