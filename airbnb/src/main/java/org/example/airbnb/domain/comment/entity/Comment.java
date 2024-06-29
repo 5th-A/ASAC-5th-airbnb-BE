@@ -31,10 +31,10 @@ public class Comment extends BaseEntity{
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    public static Comment of(CommentRequestDto commentRequestDto, Room room){
+    public static Comment of(CommentRequestDto commentRequestDto, Room room, User user){
         return Comment.builder()
                 .content(commentRequestDto.getMsg())
-                .user(room.getUser())
+                .user(user)
                 .rate(commentRequestDto.getRate())
                 .room(room)
                 .build();
