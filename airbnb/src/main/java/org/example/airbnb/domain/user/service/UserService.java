@@ -7,6 +7,9 @@ import org.example.airbnb.domain.user.dto.MainHostResponseDto;
 import org.example.airbnb.domain.user.dto.UserResponseDto;
 import org.example.airbnb.domain.user.entity.User;
 import org.example.airbnb.domain.user.repository.UserRepository;
+import org.example.airbnb.exception.CustomRuntimeException;
+import org.example.airbnb.exception.RoomException;
+import org.example.airbnb.exception.UserException;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
@@ -20,9 +23,13 @@ public class UserService {
 
     public MainHostResponseDto findRoomById(Long roomId, Long userId) throws SQLException {
         try{
-            Room room = roomRepository.findById(roomId).orElse(null);
+            Room room = roomRepository.findById(roomId).orElseThrow(() -> {
+                throw new CustomRuntimeException(RoomException.ROOM_NOT_FOUND_EXCEPTION);
+            });
             String description = room.getDESCRIPTION();
-            User user = userRepository.findById(userId).orElse(null);
+            User user = userRepository.findById(userId).orElseThrow(()->{
+                throw new CustomRuntimeException(UserException.USER_NOT_FOUND_EXCEPTION);
+            });
             UserResponseDto userResponseDto = UserResponseDto.of(user);
             MainHostResponseDto mainHostResponseDto = MainHostResponseDto.of(userResponseDto, description);
 
