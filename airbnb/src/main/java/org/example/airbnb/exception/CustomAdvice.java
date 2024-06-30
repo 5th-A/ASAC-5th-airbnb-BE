@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CustomAdvice{
     @ExceptionHandler(CustomRuntimeException.class)
-    public ResponseEntity cusmtomRuntimeExceptionHandler(CustomRuntimeException e){
+    public ResponseEntity customRuntimeExceptionHandler(CustomRuntimeException e){
         log.error(e.getCustomException().serverMessage());
         return e.sendError();
     }
