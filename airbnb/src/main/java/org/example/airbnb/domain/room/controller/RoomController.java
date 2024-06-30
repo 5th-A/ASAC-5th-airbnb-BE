@@ -31,9 +31,7 @@ public class RoomController {
     @GetMapping("/{roomId}/images")
     public ResponseEntity<MainRoomImageResponseDto> getRoomImages(@PathVariable Long roomId) {
         MainRoomImageResponseDto roomImagesByRoomId = roomService.findRoomImageByRoomId(roomId);
-        return roomImagesByRoomId != null ?
-                ResponseEntity.status(HttpStatus.OK).body(roomImagesByRoomId) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.OK).body(roomImagesByRoomId);
     }
 
     // 메인 룸정보
@@ -47,9 +45,7 @@ public class RoomController {
     @GetMapping("/{roomId}/user/{userId}")
     public ResponseEntity<MainHostResponseDto> getRoomByUserId(@PathVariable Long roomId, @PathVariable Long userId) throws SQLException {
         MainHostResponseDto mainHostResponseDto = userService.findRoomById(roomId, userId);
-        return mainHostResponseDto != null ?
-                ResponseEntity.status(HttpStatus.OK).body(mainHostResponseDto) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.OK).body(mainHostResponseDto);
     }
 
     // 숙소 편의시설
@@ -61,14 +57,14 @@ public class RoomController {
 
     // 댓글 출력
     @GetMapping("/{roomId}/comments")
-    public ResponseEntity<CommentResponseDto> getComments(@PathVariable Long roomId){
+    public ResponseEntity<CommentResponseDto> getComments(@PathVariable Long roomId) {
         CommentResponseDto commentResponseDto = commentService.findCommentByRoomId(roomId);
-        return  ResponseEntity.status(HttpStatus.OK).body(commentResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(commentResponseDto);
     }
-    
+
     // 댓글 입력
     @PostMapping("/{roomId}/comment")
-    public ResponseEntity<CommentDto> setComment(@PathVariable Long roomId, @RequestBody CommentRequestDto commentRequestDto){
+    public ResponseEntity<CommentDto> setComment(@PathVariable Long roomId, @RequestBody CommentRequestDto commentRequestDto) {
         CommentDto commentDto = commentService.saveComment(roomId, commentRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(commentDto);
     }
