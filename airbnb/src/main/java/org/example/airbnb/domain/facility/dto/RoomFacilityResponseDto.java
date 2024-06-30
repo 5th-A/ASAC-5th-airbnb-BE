@@ -8,9 +8,9 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class RoomFacilityResponseDto {
-    private final List<FacilityResponseDto> roomFacilities;
+    private final List<HouseFacilityResponseDto> roomFacilities;
 
-    public static RoomFacilityResponseDto of(List<FacilityResponseDto> facilities){
+    public static RoomFacilityResponseDto of(List<HouseFacilityResponseDto> facilities) {
         return new RoomFacilityResponseDto(
                 facilities
         );
