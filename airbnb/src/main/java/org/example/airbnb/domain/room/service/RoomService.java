@@ -7,6 +7,7 @@ import org.example.airbnb.domain.category.entity.Category;
 import org.example.airbnb.domain.category.repository.CategoryRepository;
 import org.example.airbnb.domain.comment.repository.CommentRepository;
 import org.example.airbnb.domain.facility.dto.FacilityResponseDto;
+import org.example.airbnb.domain.facility.dto.HouseFacilityResponseDto;
 import org.example.airbnb.domain.facility.dto.RoomFacilityResponseDto;
 import org.example.airbnb.domain.facility.entity.Facility;
 import org.example.airbnb.domain.facility.repository.FacilityRepository;
@@ -43,10 +44,8 @@ public class RoomService {
         Room room = roomRepository.findById(id).orElseThrow(() -> {
             throw new CustomRuntimeException(RoomException.ROOM_NOT_FOUND_EXCEPTION);
         });
-
         Category category = room.getCategory();
         List<Facility> facilityList = facilityRepository.findAll();
-
         List<FacilityResponseDto> facilityResponseDtoList = facilityList
                 .stream()
                 .map(FacilityResponseDto::of)
@@ -58,20 +57,18 @@ public class RoomService {
     }
 
     public MainRoomImageResponseDto findRoomImageByRoomId(Long roomId) {
-        try {
-            Room room = roomRepository.findById(roomId).orElse(null);
-            String roomName = room.getName();
-            List<Image> images = imageRepository.findRoomByRoomId(roomId);
-            List<ImageDto> imageDtos = images.stream().map(ImageDto::of).collect(Collectors.toList());
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> {
+            throw new CustomRuntimeException(RoomException.ROOM_NOT_FOUND_EXCEPTION);
+        });
+        String roomName = room.getName();
+        List<Image> images = imageRepository.findRoomByRoomId(roomId);
+        List<ImageDto> imageDtolist = images.stream().map(ImageDto::of).collect(Collectors.toList());
 
-            MainRoomImageResponseDto mainRoomImageResponseDto = MainRoomImageResponseDto.builder()
-                    .roomName(roomName)
-                    .roomImages(imageDtos)
-                    .build();
-            return mainRoomImageResponseDto;
-        } catch (Exception e) {
-            throw new RuntimeException();
-        }
+        MainRoomImageResponseDto mainRoomImageResponseDto = MainRoomImageResponseDto.builder()
+                .roomName(roomName)
+                .roomImages(imageDtolist)
+                .build();
+        return mainRoomImageResponseDto;
     }
 
     public RoomFacilityResponseDto findFacilitiesByRoomId(Long roomId) {
@@ -80,10 +77,10 @@ public class RoomService {
             throw new CustomRuntimeException(RoomFacilityException.ROOM_FACILITY_NOT_FOUND_EXCEPTION);
         }
 
-        List<FacilityResponseDto> facilities = roomFacilities.stream()
+        List<HouseFacilityResponseDto> facilities = roomFacilities.stream()
                 .map(roomFacility -> facilityRepository.findById(roomFacility.getFacility().getId())
                         .orElseThrow(() -> new CustomRuntimeException(FacilityException.FACILITY_NOT_FOUND_EXCEPTION)))
-                .map(FacilityResponseDto::of)
+                .map(HouseFacilityResponseDto::of)
                 .collect(Collectors.toList());
 
         return RoomFacilityResponseDto.of(facilities);
